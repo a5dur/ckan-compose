@@ -1,4 +1,3 @@
-
 FROM solr:9
 
 EXPOSE 8983
@@ -22,13 +21,13 @@ RUN cp -R $SOLR_CONFIG_DIR/_default $SOLR_CONFIG_DIR/ckan
 ADD schema.xml $SOLR_SCHEMA_FILE
 RUN chmod 644 $SOLR_SCHEMA_FILE 
 
-# Install JTS JAR file
-ADD https://repo1.maven.org/maven2/org/locationtech/jts/jts-core/$JTS_VERSION/jts-core-$JTS_VERSION.jar \
-    $JTS_JAR_FILE
-RUN chmod 644 $JTS_JAR_FILE
+# Install JTS JAR file with better error handling
+RUN curl -L --fail \
+    "https://repo1.maven.org/maven2/org/locationtech/jts/jts-core/$JTS_VERSION/jts-core-$JTS_VERSION.jar" \
+    -o $JTS_JAR_FILE && \
+    chmod 644 $JTS_JAR_FILE
 
 RUN touch $SOLR_CONFIG_DIR/ckan/conf/solrconfig.xml
-
 
 USER solr
 
