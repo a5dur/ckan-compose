@@ -40,11 +40,10 @@ services:
 
   mailcatcher:
     restart: on-failure
-    image: haravich/fake-smtp-server
+    image: mailhog/mailhog
     ports:
-    - "1080:1080"
-    - "1025:1025"
-
+    - "8025:8025"  # Web UI (changed from 1080 for better ARM64 compatibility)
+    - "1025:1025"  # SMTP
 
 volumes:
   pg_data:
