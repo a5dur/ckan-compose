@@ -1,4 +1,4 @@
-FROM postgis/postgis:16-3.4-alpine
+FROM imresamu/postgis:16-3.4-bundle0-bookworm
 
 # Allow connections; we don't map out any ports so only linked docker containers can connect
 RUN echo "host all  all    0.0.0.0/0  md5" >> /var/lib/postgresql/data/pg_hba.conf
